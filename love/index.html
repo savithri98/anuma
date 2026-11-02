@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="kn">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ಅಮ್ಮು (ಅನನ್ಯಾ) ಗಾಗಿ 💕</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Lato:wght@300;400&family=Dancing+Script:wght@600;700&family=Noto+Sans+Kannada:wght@300;400;600;700&family=Noto+Serif+Devanagari:wght@400;600;700&display=swap"
+        rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+        /* Kannada & Devanagari font overrides */
+        body,
+        p,
+        h1,
+        h2,
+        h3,
+        span,
+        button,
+        label,
+        div {
+            font-family: 'Noto Sans Kannada', 'Lato', sans-serif;
+        }
+
+        .main-title,
+        .section-title,
+        .promise-title {
+            font-family: 'Noto Serif Devanagari', 'Playfair Display', serif;
+        }
+
+        .lambani-title,
+        .promise-item,
+        .finale-line,
+        .finale-signature,
+        .lambani-block {
+            font-family: 'Noto Serif Devanagari', serif;
+            letter-spacing: 0.02em;
+        }
+
+        .letter-salutation,
+        .letter-closing,
+        .intro-text,
+        .hero-para,
+        .read-btn {
+            font-family: 'Dancing Script', 'Noto Sans Kannada', cursive;
+        }
+
+        /* Lambani section special styling */
+        .lambani-block {
+            background: linear-gradient(135deg, rgba(255, 62, 126, 0.08), rgba(255, 213, 128, 0.08));
+            border: 1px solid rgba(255, 213, 128, 0.3);
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin: 2rem auto;
+            max-width: 640px;
+            text-align: center;
+            position: relative;
+        }
+
+        .lambani-block::before {
+            content: '⊰ ✦ ⊱';
+            display: block;
+            color: #ffd580;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            letter-spacing: 0.5em;
+        }
+
+        .lambani-title {
+            font-size: 1.1rem;
+            color: #ffd580;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-bottom: 1.2rem;
+            font-weight: 600;
+        }
+
+        .lambani-poem {
+            font-family: 'Noto Serif Devanagari', serif;
+            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+            line-height: 2.2;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .lambani-poem .highlight-line {
+            color: #ffd580;
+            font-weight: 700;
+            font-size: 1.1em;
+            display: block;
+            text-shadow: 0 0 20px rgba(255, 213, 128, 0.5);
+        }
+
+        .lambani-poem .rose-line {
+            color: #ff7eb3;
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- INTRO SCREEN -->
+    <div class="intro" id="intro">
+        <div class="intro-content">
+            <div class="intro-heart">💗</div>
+            <p class="intro-text">ಅಮ್ಮು... ನಿನಗಾಗಿ ಏನೋ ವಿಶೇಷ ಕಾಯುತ್ತಿದೆ 💗</p>
+            <button class="open-btn" id="openBtn">ನಿನ್ನ ಉಡುಗೊರೆ ತೆರೆ ✨</button>
+        </div>
+        <div class="intro-particles" id="introParticles"></div>
+    </div>
+
+    <!-- MAIN EXPERIENCE -->
+    <div class="main" id="main" style="display:none;">
+
+        <!-- 3D CANVAS -->
+        <canvas id="threeCanvas"></canvas>
+
+        <!-- FLOATING PETALS -->
+        <div class="petals-container" id="petalsContainer"></div>
+
+        <!-- FIREFLIES -->
+        <div class="fireflies" id="fireflies"></div>
+
+        <!-- CONTENT WRAPPER -->
+        <div class="content">
+
+            <!-- HERO MESSAGE -->
+            <section class="hero-section" id="heroSection">
+                <div class="hero-inner">
+                    <div class="subtitle-tiny">✦ ಅಮ್ಮು ಗೆ, ಪ್ರೀತಿಯಿಂದ ✦</div>
+                    <h1 class="main-title">
+                        <span class="title-line" id="titleLine">ಅನನ್ಯಾ, ನೀನು ನನ್ನ</span><br />
+                        <span class="title-highlight" id="titleHighlight">ಎಲ್ಲವೂ</span>
+                    </h1>
+                    <p class="hero-para">ಅಮ್ಮು, ನಿನ್ನೊಂದಿಗಿನ ಪ್ರತಿ ಕ್ಷಣವೂ ಮಾಯಾಜಾಲದಂತೆ ✨</p>
+                    <div class="scroll-hint">
+                        <span>ಕೆಳಗೆ ನೋಡಿ</span>
+                        <div class="scroll-arrow">↓</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- AMMU PHOTO SECTION -->
+            <section class="photo-section" id="photoSection">
+                <div class="photo-frame-wrapper">
+                    <div class="photo-sparkles">
+                        <span class="ps">✦</span><span class="ps">🌸</span><span class="ps">✦</span>
+                        <span class="ps">💕</span><span class="ps">⭐</span><span class="ps">💫</span>
+                        <span class="ps">🌹</span><span class="ps">✨</span>
+                    </div>
+                    <div class="photo-frame">
+                        <img src="ammu.jpg" alt="ಅಮ್ಮು" class="ammu-photo" />
+                        <div class="photo-shine"></div>
+                    </div>
+                    <p class="photo-caption">ನನ್ನ ಜಗತ್ತು, ನನ್ನ ಅಮ್ಮು 💕</p>
+                    <p class="photo-sub">ಈ ನಗು ನನ್ನ ಅತ್ಯಂತ ಮೆಚ್ಚಿನ ದೃಶ್ಯ ✨</p>
+                </div>
+            </section>
+
+            <!-- REASONS SECTION -->
+            <section class="reasons-section" id="reasonsSection">
+                <h2 class="section-title">ನಾನು ನಿನ್ನನ್ನು ಯಾಕೆ ಪ್ರೀತಿಸುತ್ತೇನೆ</h2>
+                <div class="reasons-grid" id="reasonsGrid">
+                    <div class="reason-card" data-delay="0">
+                        <div class="reason-icon">🌸</div>
+                        <h3>ನಿನ್ನ ನಗು</h3>
+                        <p>ನೀನು ನಗುವಾಗ ಇಡೀ ಜಗತ್ತು ಬೆಳಗುತ್ತದೆ — ಮತ್ತು ನನ್ನ ಹೃದಯ ಒಂದು ಬಡಿತ ತಪ್ಪಿಸಿಕೊಳ್ಳುತ್ತದೆ.</p>
+                    </div>
+                    <div class="reason-card" data-delay="100">
+                        <div class="reason-icon">✨</div>
+                        <h3>ನಿನ್ನ ದಯೆ</h3>
+                        <p>ನೀನು ಎಲ್ಲರನ್ನೂ ಪ್ರೀತಿಯಿಂದ ನೋಡಿಕೊಳ್ಳುವ ರೀತಿ ನಿನ್ನ ಆತ್ಮದ ಸೌಂದರ್ಯವನ್ನು ತೋರಿಸುತ್ತದೆ.</p>
+                    </div>
+                    <div class="reason-card" data-delay="200">
+                        <div class="reason-icon">🌙</div>
+                        <h3>ನಿನ್ನ ಚೈತನ್ಯ</h3>
+                        <p>ನೀನು ಪ್ರತಿದಿನ ನನ್ನ ಜೀವನಕ್ಕೆ ಬೆಚ್ಚಗಿನ ಬೆಳಕು, ಸಂತೋಷ ಮತ್ತು ನಗು ತರುತ್ತೀಯ.</p>
+                    </div>
+                    <div class="reason-card" data-delay="300">
+                        <div class="reason-icon">💎</div>
+                        <h3>ನಿನ್ನ ಶಕ್ತಿ</h3>
+                        <p>ನೀನು ಪ್ರತಿ ಕಷ್ಟವನ್ನು ಧೈರ್ಯದಿಂದ ಎದುರಿಸುವ ರೀತಿ ನನಗೆ ಪ್ರತಿದಿನ ಸ್ಫೂರ್ತಿ ತರುತ್ತದೆ.</p>
+                    </div>
+                    <div class="reason-card" data-delay="400">
+                        <div class="reason-icon">🦋</div>
+                        <h3>ನಿನ್ನ ಮನಸ್ಸು</h3>
+                        <p>ನಿನ್ನ ಕನಸುಗಳು, ಆಲೋಚನೆಗಳು ಮತ್ತು ನೀನು ಜಗತ್ತನ್ನು ನೋಡುವ ರೀತಿ ನನ್ನನ್ನು ಮಂತ್ರಮುಗ್ಧಗೊಳಿಸುತ್ತದೆ.</p>
+                    </div>
+                    <div class="reason-card" data-delay="500">
+                        <div class="reason-icon">🌹</div>
+                        <h3>ಸರಳವಾಗಿ ನೀನು</h3>
+                        <p>ನಿನ್ನ ಪ್ರತಿ ಹೆಜ್ಜೆ, ಪ್ರತಿ ನಗು, ಪ್ರತಿ ಕ್ಷಣ — ನೀನು ಅಪ್ಪಟ ಅದ್ಭುತ.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- LOVE LETTER -->
+            <section class="letter-section" id="letterSection">
+                <div class="letter-envelope" id="letterEnvelope">
+                    <div class="envelope-flap"></div>
+                    <div class="envelope-body">
+                        <div class="letter-paper" id="letterPaper">
+                            <div class="letter-decoration">💌</div>
+                            <p class="letter-date">ನವೆಂಬರ್ ೨, ೨೦೨೬</p>
+                            <p class="letter-salutation">ನನ್ನ ಪ್ರಿಯ ಅಮ್ಮು,</p>
+                            <p class="letter-body" id="letterBody"></p>
+                            <p class="letter-closing">ಯಾವಾಗಲೂ ನಿನ್ನವನು,<br /><em>ನಿನ್ನ ಒಂದೇ ಒಂದು ❤️</em></p>
+                        </div>
+                    </div>
+                </div>
+                <button class="read-btn" id="readBtn">ಪತ್ರ ತೆರೆ 💌</button>
+            </section>
+
+            <!-- MEMORY CONSTELLATION -->
+            <section class="constellation-section" id="constellationSection">
+                <h2 class="section-title">ನಮ್ಮ ನಕ್ಷತ್ರ ಮಂಡಲ</h2>
+                <p class="section-sub">ಪ್ರತಿ ನಕ್ಷತ್ರವೂ ನಾವು ಒಟ್ಟಿಗೆ ಕಳೆದ ಕ್ಷಣ ✦</p>
+                <canvas id="constellationCanvas"></canvas>
+            </section>
+
+            <!-- PROMISE — LAMBANI PROPOSAL -->
+            <section class="promise-section" id="promiseSection">
+                <div class="promise-inner">
+                    <div class="promise-ring">
+                        <div class="ring-outer"></div>
+                        <div class="ring-inner">
+                            <span class="ring-text">∞</span>
+                        </div>
+                    </div>
+
+                    <!-- LAMBANI PROPOSAL POEM -->
+                    <div class="lambani-block">
+                        <div class="lambani-title">— ಲಂಬಾಣಿ ಭಾಷೆಯಲ್ಲಿ ನನ್ನ ಮನಸ್ಸು —</div>
+                        <div class="lambani-poem">
+                            <span>ओ अम्मू, मारो दिल तुज्यां बिनां कशा</span><br />
+                            <span class="rose-line">तू मारी जिवनाची रौशनी,</span><br />
+                            <span>तू मारी सासां में वासते,</span><br />
+                            <span class="highlight-line">क्या तू मारी नवेली बणेगी? 💍</span><br />
+                            <span class="rose-line">मारो हाथ थाम ले अनन्या,</span><br />
+                            <span>सात जनम मारे साथ रहेगी?</span><br />
+                            <span>मारो पेम कबूल कर...</span><br />
+                            <span class="highlight-line">✦ अम्मू, तू मारी ज़िंदगी हे ✦</span>
+                        </div>
+                    </div>
+
+                    <h2 class="promise-title">ನನ್ನ ವಾಗ್ದಾನಗಳು</h2>
+                    <div class="promises-list">
+                        <div class="promise-item" id="pi1"><span class="p-icon">💫</span> ಯಾವಾಗಲೂ ನಿನ್ನ ಪಕ್ಕದಲ್ಲಿ
+                            ಇರುತ್ತೇನೆ</div>
+                        <div class="promise-item" id="pi2"><span class="p-icon">🌙</span> ಪ್ರತಿ ದಿನ ನಿನ್ನನ್ನು
+                            ನಗಿಸುತ್ತೇನೆ</div>
+                        <div class="promise-item" id="pi3"><span class="p-icon">🌸</span> ಪ್ರತಿ ಕ್ಷಣ ನಿನ್ನನ್ನು ಇನ್ನಷ್ಟು
+                            ಪ್ರೀತಿಸುತ್ತೇನೆ</div>
+                        <div class="promise-item" id="pi4"><span class="p-icon">🔥</span> ನಿನಗೆ ಸದಾ ಸುರಕ್ಷಿತ ಆಶ್ರಯ
+                            ಆಗುತ್ತೇನೆ</div>
+                        <div class="promise-item" id="pi5"><span class="p-icon">✨</span> ಜೀವನ ಪೂರ್ತಿ ನಿನ್ನನ್ನು
+                            ಆದರಿಸುತ್ತೇನೆ</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- FINAL CTA -->
+            <section class="finale-section" id="finaleSection">
+                <div class="finale-inner">
+                    <div class="big-heart" id="bigHeart">💖</div>
+                    <p class="finale-line">ಅಮ್ಮು, ನಿನ್ನನ್ನು ಚಂದ್ರನ ತನಕ ಮತ್ತು ವಾಪಸ್ ಪ್ರೀತಿಸುತ್ತೇನೆ,</p>
+                    <p class="finale-line">ಪ್ರತಿ ನಕ್ಷತ್ರದ ಆಚೆಯೂ,</p>
+                    <p class="finale-line">ಪ್ರತಿ ವಿಶ್ವದಲ್ಲೂ — ಅನನ್ಯಾ, ನೀನೇ ನನ್ನ ಎಲ್ಲ.</p>
+                    <div class="finale-signature">— ಯಾವಾಗಲೂ ನಿನ್ನ ಮಾತ್ರ 💕</div>
+                    <button class="hearts-btn" id="heartsBtn">ಅಮ್ಮುಗೆ ಪ್ರೀತಿ ಕಳಿಸು 💗</button>
+                </div>
+            </section>
+
+        </div><!-- /content -->
+    </div><!-- /main -->
+
+    <script src="love.js"></script>
+</body>
+
+</html>
